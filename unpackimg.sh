@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/BIN/sh
 # AIK-Linux/unpackimg: split image and unpack ramdisk
 # osm0sis @ xda-developers
 
@@ -18,9 +18,9 @@ case $1 in
     exit 1;;
 esac;
 
-bin="$PWD/bin";
-chmod -R 755 "$bin" "$PWD"/*.sh;
-chmod 644 "$bin/magic";
+BIN="$PWD/BIN";
+chmod -R 755 "$BIN" "$PWD"/*.sh;
+chmod 644 "$BIN/magic";
 cd "$PWD";
 
 arch=`uname -m`;
@@ -46,7 +46,7 @@ echo " ";
 mkdir split_img ramdisk;
 
 echo 'Splitting image to "split_img/"...';
-$bin/$arch/unpackbootimg -i "$1" -o split_img;
+$BIN/$arch/unpackbootimg -i "$1" -o split_img;
 if [ ! $? -eq "0" ]; then
   cleanup;
   abort;
@@ -54,7 +54,7 @@ if [ ! $? -eq "0" ]; then
 fi;
 
 cd split_img;
-file -m $bin/magic *-ramdisk.gz | cut -d: -f2 | cut -d" " -f2 > "$file-ramdiskcomp";
+file -m $BIN/magic *-ramdisk.gz | cut -d: -f2 | cut -d" " -f2 > "$file-ramdiskcomp";
 ramdiskcomp=`cat *-ramdiskcomp`;
 unpackcmd="$ramdiskcomp -dc";
 compext=$ramdiskcomp;
@@ -64,7 +64,7 @@ case $ramdiskcomp in
   xz) ;;
   lzma) ;;
   bzip2) compext=bz2;;
-  lz4) unpackcmd="$bin/$arch/lz4 -dq"; extra="stdout";;
+  lz4) unpackcmd="$BIN/$arch/lz4 -dq"; extra="stdout";;
   *) compext="";;
 esac;
 if [ "$compext" ]; then

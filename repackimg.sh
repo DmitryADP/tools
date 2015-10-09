@@ -1,12 +1,12 @@
-#!/bin/sh
+#!/BIN/sh
 # AIK-Linux/repackimg: repack ramdisk and build image
 # osm0sis @ xda-developers
 
 abort() { cd "$PWD"; echo "Error!"; }
 
-bin="$PWD/bin";
-chmod -R 755 "$bin" "$PWD"/*.sh;
-chmod 644 "$bin/magic";
+BIN="$PWD/BIN";
+chmod -R 755 "$BIN" "$PWD"/*.sh;
+chmod 644 "$BIN/magic";
 cd "$PWD";
 
 arch=`uname -m`;
@@ -51,7 +51,7 @@ case $1 in
       xz) repackcmd="xz $level -Ccrc32";;
       lzma) repackcmd="xz $level -Flzma";;
       bzip2) compext=bz2;;
-      lz4) repackcmd="$bin/$arch/lz4 $level -l stdin stdout";;
+      lz4) repackcmd="$BIN/$arch/lz4 $level -l stdin stdout";;
     esac;
     cd ramdisk;
     find . | cpio -H newc -o 2> /dev/null | $repackcmd > ../ramdisk-new.cpio.$compext;
@@ -94,7 +94,7 @@ cd ..;
 echo " ";
 echo "Building image...";
 echo " ";
-$bin/$arch/mkbootimg --kernel "split_img/$kernel" --ramdisk "$ramdisk" $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb -o image-new.img;
+$BIN/$arch/mkbootimg --kernel "split_img/$kernel" --ramdisk "$ramdisk" $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb -o image-new.img;
 if [ ! $? -eq "0" ]; then
   abort;
   exit 1;
